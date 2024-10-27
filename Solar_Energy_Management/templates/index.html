@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Consumption Analytics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Solar Energy Management Report</h1>
+    <div id="report">
+        <p><strong>Total Solar Production (kWh):</strong> {{ report.total_solar_production }}</p>
+        <p><strong>Total Energy Usage (kWh):</strong> {{ report.total_energy_usage }}</p>
+        <p><strong>End Battery Charge (kWh):</strong> {{ report.end_battery_charge }}</p>
+    </div>
+
+    <h2>Energy Analytics Chart</h2>
+    <img src="{{ url_for('static', filename='energy_plot.png') }}" alt="Energy Analytics Plot">
+
+</body>
+</html>

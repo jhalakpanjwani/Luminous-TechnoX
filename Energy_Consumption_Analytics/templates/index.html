@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Consumption Report</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Energy Consumption Report</h1>
+    <div class="report">
+        <p><strong>Total Energy Usage (kWh):</strong> <span id="total_energy_usage"></span></p>
+        <p><strong>Total Cost ($):</strong> <span id="total_cost"></span></p>
+        <p><strong>Potential Savings ($):</strong> <span id="potential_savings"></span></p>
+    </div>
+    
+    <div id="chart"></div>
+    
+    <script>
+        // Fetch energy data from the Flask backend
+        fetch('/energy_data')
+            .then(response => response.json())
+            .then(data => {
+                // Update report
+                document.getElementById('total_energy_usage').textContent = data.report.total_energy_usage_kWh.toFixed(2);
+                document.getElementById('total_cost').textContent = data.report.total_cost.toFixed(2);
+                document.getElementById('potential_savings').textContent = data.report.potential_savings.toFixed(2);
+
+                // Plot energy consumption chart
+                const chartData = [{
+                    x: data.timestamps,
+                    y: data.energy_consumption,
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    name: 'Energy Consumption (kWh)',
+                    line: {color: 'blue'}
+                }];
+
+                const layout = {
+                    title: 'Energy Consumption Over Time',
+                    xaxis: { title: 'Time' },
+                    yaxis: { title: 'Energy Consumption (kWh)' }
+                };
+
+                Plotly.newPlot('chart', chartData, layout);
+            });
+    </script>
+</body>
+</html>

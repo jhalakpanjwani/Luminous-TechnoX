@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Forecast and Recommendations</title>
+</head>
+<body>
+    <h1>7-Day Energy Forecast</h1>
+    <table border="1">
+        <tr>
+            <th>Date</th>
+            <th>Energy Forecast (kWh)</th>
+            <th>Solar Forecast (kWh)</th>
+            <th>Forecast Weather</th>
+            <th>Forecast Tariff</th>
+        </tr>
+        {% for day in forecast %}
+        <tr>
+            <td>{{ day.date }}</td>
+            <td>{{ day.energy_forecast_kWh }}</td>
+            <td>{{ day.solar_forecast_kWh }}</td>
+            <td>{{ day.forecast_weather }}</td>
+            <td>{{ day.forecast_tariff }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Personalized Recommendations</h2>
+    <ul>
+        {% for recommendation in recommendations %}
+        <li>{{ recommendation }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Forecast Plot</h2>
+    <img src="{{ url_for('static', filename='forecast_plot.png') }}" alt="Forecast Plot" />
+</body>
+</html>
